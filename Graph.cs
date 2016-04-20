@@ -18,52 +18,42 @@ namespace WpfApplication1
     class Graph : Function
     {
         private Line myLine;
-        private const int POSITIONZEROPOINT = 250;
 
         public Graph()
             : base()
         {
             myLine = new Line();
         }
-        private void DrawLine(Canvas myGrid, int i)
+        private void DrawLine(Canvas myGrid, int i, int color)
         {
             myLine = new Line();
-            myLine.Stroke = System.Windows.Media.Brushes.DarkRed;
-            myLine.X1 = i -this.Vector.X;
-            myLine.X2 = i -this.Vector.X;
-            myLine.Y1 = Value[i] + POSITIONZEROPOINT;
-            myLine.Y2 = Value[i-1] + POSITIONZEROPOINT;
+            myLine.Stroke = System.Windows.Media.Brushes.Olive;
+            switch (color)
+            {
+                case 0: myLine.Stroke = System.Windows.Media.Brushes.DarkRed; break;
+                case 1: myLine.Stroke = System.Windows.Media.Brushes.DarkOrange; break;
+                case 2: myLine.Stroke = System.Windows.Media.Brushes.DarkViolet; break;
+                case 3: myLine.Stroke = System.Windows.Media.Brushes.DarkGreen; break;
+                case 4: myLine.Stroke = System.Windows.Media.Brushes.Yellow; break;
+                case 5: myLine.Stroke = System.Windows.Media.Brushes.Tomato; break;
+                case 6: myLine.Stroke = System.Windows.Media.Brushes.Purple; break;
+                case 7: myLine.Stroke = System.Windows.Media.Brushes.RoyalBlue; break;
+            }
+            myLine.X1 = Value[i+1000].X;
+            myLine.X2 = Value[i+999].X;
+            myLine.Y1 = Value[i+1000].Y;
+            myLine.Y2 = Value[i+999].Y;
             myLine.HorizontalAlignment = HorizontalAlignment.Left;
             myLine.VerticalAlignment = VerticalAlignment.Center;
             myLine.StrokeThickness = 2;
             myGrid.Children.Add(myLine);
         }
-        private void DrawLine1(Canvas myGrid, int i)
+        public virtual void DrawGraph(Canvas myGrid, int color)
         {
-            myLine = new Line();
-            myLine.Stroke = System.Windows.Media.Brushes.White;
-            myLine.X1 = SymY*i - this.Vector.X;
-            myLine.X2 = SymY*i - this.Vector.X;
-            myLine.Y1 = Value[i] + POSITIONZEROPOINT;
-            myLine.Y2 = Value[i - 1] + POSITIONZEROPOINT;
-            myLine.HorizontalAlignment = HorizontalAlignment.Left;
-            myLine.VerticalAlignment = VerticalAlignment.Center;
-            myLine.StrokeThickness = 2;
-            myGrid.Children.Add(myLine);
-        }
-        public virtual void DrawGraph(Canvas myGrid)
-        {
-            for (int i = 1; i <=500; i++)
-                if (FieldFunction[i])
+            for (int i = -999; i <=1000; i++)
+                //if (FieldFunction[i+1000])
                     //if(Value[i-1]>-250)
-                        DrawLine(myGrid, i);
-        }
-        public virtual void DrawGraph1(Canvas myGrid)
-        {
-            for (int i = 1; i <= 500; i++)
-                if (FieldFunction[i])
-                    //if(Value[i-1]>-250)
-                    DrawLine1(myGrid, i);
+                        DrawLine(myGrid, i, color);
         }
     }
 }

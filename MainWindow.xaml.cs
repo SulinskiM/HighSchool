@@ -20,7 +20,7 @@ namespace WpfApplication1
     /// </summary>
     public partial class MainWindow : Window
     {
-        Graph asf;
+        LineFunction Function;
         public MainWindow()
         {
             InitializeComponent();
@@ -28,82 +28,130 @@ namespace WpfApplication1
 
             LineDraw.DrawNet(myGrid);
             LineDraw.DrawCartesian(myGrid);
-            //Point[] ad = new Point[200];
-            //for(int i=0; i<200; i++)
-            //{
-            //    int u = i - 100;
-            //    ad[i].X = u;
-            //    ad[i].Y = -u*u/10;
-            //}
 
-            //for (int i = 1; i < 200; i++)
-            //{
-            //    Line myLine;
-            //    myLine = new Line();
-            //    myLine.Stroke = System.Windows.Media.Brushes.Red;
-            //    myLine.X1 = ad[i].X+250;
-            //    myLine.X2 = ad[i-1].X+250;
-            //    myLine.Y1 = ad[i].Y+250;
-            //    myLine.Y2 = ad[i-1].Y+250;
-            //    myLine.HorizontalAlignment = HorizontalAlignment.Left;
-            //    myLine.VerticalAlignment = VerticalAlignment.Center;
-            //    myLine.StrokeThickness = 2;
-            //    myGrid.Children.Add(myLine);
-            //}
+            Function = new LineFunction();
 
-            asf=new Graph();
-
-            asf.DrawGraph(myGrid);
+            Function.DrawGraph(myGrid, 7);
         }
-        private void Button_Click(object sender, RoutedEventArgs e)
-        {
-
-        }
-
         private void Button_Click_1(object sender, RoutedEventArgs e)
         {
             try
             {
-                asf.Vector.X += Convert.ToInt32(VectorX.Text)*10;
-                asf.Vector.Y = Convert.ToInt32(VectorY.Text)*10;
+                Function.Vector.X = Convert.ToInt32(VectorX.Text) * 10;
+                Function.Vector.Y = Convert.ToInt32(VectorY.Text) * 10;
+                ModificationFunction.Content = Function.ToString();
+                Function.TransformAboutVector();
+                Function.DrawGraph(myGrid, 0);
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
-
+                ErrorVector.Content = ex.Message;
             }
             finally
             {
-                VectorX.Text = "0";
-                VectorY.Text = "0";
+                ZeroOfBox(VectorX, VectorY);
+                Function.Vector.NullOfVector();
             }
-            asf.TransformAboutVector();
-                asf.DrawGraph(myGrid);
-            VectorX.Text = "0";
-            VectorY.Text = "0";
+        }
+        private void ZeroOfBox(TextBox box1, TextBox box2)
+        {
+            box1.Text = "0";
+            box2.Text = "0";
+        }
+        private void ZeroOfBox(TextBox box1, TextBox box2, string Value)
+        {
+            box1.Text = "0";
+            box2.Text = "0";
+        }
+        private void NullObject(Label label, string value)
+        {
+            label.Content = value;
         }
 
         private void Button_Click_2(object sender, RoutedEventArgs e)
         {
-            asf.AbsoluteValueFunction();
-            asf.DrawGraph(myGrid);
+            Function.AbsoluteValueFunction();
+            Function.DrawGraph(myGrid,1);
         }
 
         private void Button_Click_3(object sender, RoutedEventArgs e)
         {
-            asf.AbsoluteValueArgument();
-            asf.DrawGraph1(myGrid);
+            Function.AbsoluteValueArgument();
+            Function.DrawGraph(myGrid,2);
         }
 
         private void Button_Click_4(object sender, RoutedEventArgs e)
         {
-            asf.SymmetryAsisX();
-            asf.DrawGraph(myGrid);
+            Function.SymmetryAsisX();
+            Function.DrawGraph(myGrid, 3);
         }
 
         private void Button_Click_5(object sender, RoutedEventArgs e)
         {
-            asf.SymmetryAxisY();
-            asf.DrawGraph(myGrid);
+            Function.SymmetryAxisY();
+            Function.DrawGraph(myGrid,4);
+        }
+
+        private void Button_Click_6(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                Function.KF(Convert.ToDouble(BoxK.Text));
+                Function.DrawGraph(myGrid,5);
+            }
+            catch (Exception ex)
+            {
+                ErrorVector.Content = ex.Message;
+            }
+            finally
+            {
+                ZeroOfBox(BoxK, BoxK2);
+            }
+        }
+
+        private void Button_Click_7(object sender, RoutedEventArgs e)
+        {
+            Function.SymmetryPointZero();
+            Function.DrawGraph(myGrid,6);
+        }
+
+
+        private void myGrid2_MouseMove(object sender, MouseEventArgs e)
+        {
+            Point mouseLocation = e.GetPosition(myGrid);
+
+            if (Math.Round(mouseLocation.X / 10, 2) <= 30)
+            {
+                MouseX.Content = "X = " + Convert.ToString(Math.Round(mouseLocation.X / 10, 2));
+                MouseY.Content = "Y = " + Convert.ToString(-Math.Round(mouseLocation.Y / 10, 2));
+            }
+            else
+            {
+                MouseX.Content = "X = ###";
+                MouseY.Content = "Y = ###";
+            }
+        }
+        private void Button_Click_8(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                int b = Convert.ToInt32(ShowValue.Text);
+                var value =
+                    from a in Function.Value
+                    where a.X == b * 10
+                    select a.Y;
+                foreach (var item in value) { ValueFunction.Content = "f(x) = " + Convert.ToString(-item / 10); }
+            }
+            catch(Exception ex)
+            {
+                ErrorVector.Content = ex.Message;
+            }
+        }
+
+        private void Button_Click_9(object sender, RoutedEventArgs e)
+        {
+            LineDraw.DrawNet(myGrid);
+            LineDraw.DrawCartesian(myGrid);
         }
     }
 }

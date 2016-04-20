@@ -16,36 +16,42 @@ using System.Windows.Shapes;
 
 namespace WpfApplication1
 {
+    struct Point1
+    {
+        Point Point;
+        bool FieldFunction;
+    }
     class Function
     {
         public bool[] FieldFunction;
-        public int[] Value;
+        public Point[] Value;
         private const int SCALEGRAPH = 10;
         public Vector Vector { get; set; }
-        public int SymY { get; set; } = 1;
+        public int SymY { get; set; } = -1;
 
         public Function()
         {
-            FieldFunction = new bool[501];
-            for (int i = 0; i <= 500; i++)
+            FieldFunction = new bool[2001];
+            for (int i = 0; i <= 2000; i++)
                 FieldFunction[i] = true;
-            Value = new int[501];
+            Value = new Point[2001];
             ChargeValue();
             Vector = new Vector();
         }
 
         //Calculate value function for x (f(x))
-        protected virtual int CountValue(int i)
+        public virtual int CountValue(int i)
         {
-            return -i *i /SCALEGRAPH;
+            return -i*i /SCALEGRAPH;
         }
         private void ChargeValue()
         {
-            for (int i = -250; i <= 250; i++)
+            for (int i = -1000; i <= 1000; i++)
             {
-                if (FieldFunction[i + 250])
+                if (FieldFunction[i + 1000])
                 {
-                    Value[i + 250] = CountValue(i);
+                    Value[i + 1000].X = i;
+                    Value[i + 1000].Y = CountValue(i);
                 }
             }
         }
@@ -57,39 +63,50 @@ namespace WpfApplication1
 
         public void TransformAboutVector()
         {
-            for(int i=0; i<=500; i++)
+            for(int i=-1000; i<=1000; i++)
             {
-                this.Value[i] -= this.Vector.Y;
+                this.Value[i + 1000].Y -= this.Vector.Y;
+                this.Value[i + 1000].X -= this.Vector.X;
             }
             this.Vector.Y = 0;
+            this.Vector.X = 0;
         }
 
         //Symmetry through the axis X
 
         public void SymmetryAsisX()
         {
-            for (int i = 0; i <= 500; i++)
+            for (int i = -1000; i <= 1000; i++)
             {
-                this.Value[i] = -this.Value[i];
+                this.Value[i+1000].Y = -this.Value[i+1000].Y;  
             }
         }
 
         //Symmetry through the axis Y
-        
+
         public void SymmetryAxisY()
         {
-            SymY *= -1;
+            for(int i=-1000; i<=1000; i++)
+            {
+                Value[i + 1000].X *= -1;
+            }
         }
 
         //Symmetry through the point (0,0)
+
+        public void SymmetryPointZero()
+        {
+            SymmetryAsisX();
+            SymmetryAxisY();
+        }
 
         //The absolute value of function (|f(x)|)
 
         public void AbsoluteValueFunction()
         {
-            for(int i=0; i<=500; i++)
+            for(int i=-1000; i<=1000; i++)
             {
-                this.Value[i] = -Math.Abs(this.Value[i]);
+                this.Value[i+1000].Y = -Math.Abs(this.Value[i+1000].Y);
             }
         }
 
@@ -97,17 +114,29 @@ namespace WpfApplication1
 
         public void AbsoluteValueArgument()
         {
-            //int a = 251;
-            
-            //for (int i = 249;  i>0; i--)
-            //{
-            //    this.Value[i] = 100;//this.Value[a];
-            //    a++;
-            //}
+            int i = 0;
+            while (Value[i].X != 0) { i++; }
+           
+            int a = 2;
+            for(int j= i-1; j>300; j--)
+            {
+                Value[j].Y = Value[j + a].Y;
+                a += 2;
+            }
         }
 
         //k*f(x)
 
+        public void KF(double k)
+        {
+            for (int i = -1000; i < 1000; i++)
+                Value[i+1000].Y *= Convert.ToInt32(k);
+        }
+
         //f(k*x)
+        public override string ToString()
+        {
+            return "f(x"+Convert.ToString(Vector.X) +")";
+        }
     }
 }

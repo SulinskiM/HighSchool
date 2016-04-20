@@ -12,6 +12,7 @@ namespace WpfApplication1
 {
     abstract class LineDraw
     {
+
         private static void DrawLine(Canvas myGrid, int x1, int x2, int y1, int y2)
         {
             Line line = new Line();
@@ -22,25 +23,26 @@ namespace WpfApplication1
             line.Y2 = y2;
             line.HorizontalAlignment = HorizontalAlignment.Left;
             line.VerticalAlignment = VerticalAlignment.Center;
-            line.StrokeThickness = 4;
+            line.StrokeThickness = 2;
             myGrid.Children.Add(line);
         }
         public static void DrawCartesian(Canvas grid)
         {
-            DrawLine(grid, 250, 250, 10, 490);
-            DrawLine(grid, 10, 490, 250, 250);
-            DrawLine(grid, 240, 250, 20, 10);
-            DrawLine(grid, 250, 260, 10, 20);
-            DrawLine(grid, 480, 490, 240, 250);
-            DrawLine(grid, 490, 480, 250, 260);
+            DrawLine(grid, 0, 0, -290, 290);
+            DrawLine(grid, -290, 290, 0, 0);
+            //DrawLine(grid, 240, 250, 20, 10);
+            //DrawLine(grid, 250, 260, 10, 20);
+            //DrawLine(grid, 480, 490, 240, 250);
+            //DrawLine(grid, 490, 480, 250, 260);
         }
         public static void DrawNet(Canvas grid)
         {
-            for (int i = 0; i < 50; i++)
+            for (int i = -30; i <= 30; i++)
             {
-                DrawLineNet(grid, 0, 500, i*10, i*10);
-                DrawLineNet(grid, i * 10, i * 10, 0,500);
+                DrawLineNet(grid, -300, 300, i*10, i*10);
+                DrawLineNet(grid, i * 10, i * 10, -300, 300);
             }
+                DrawLineNet(grid, 300, 300, -300, 300);
         }
         private static void DrawLineNet(Canvas myGrid, int x1, int x2,int y1,int y2)
         {

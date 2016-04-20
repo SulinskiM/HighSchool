@@ -21,5 +21,10 @@ namespace WpfApplication1
             this.X = x;
             this.Y = y;
         }
+        public void NullOfVector()
+        {
+            this.X = 0;
+            this.Y = 0;
+        }
     }
 }

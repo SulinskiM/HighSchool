@@ -5,26 +5,37 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:WpfApplication1"
         mc:Ignorable="d"
-        Title="MainWindow" Height="600" Width="850">
-    <Grid x:Name="myGrid2" Margin="0,0,-6.8,0.4" Background="#FF25791C">
-        <Canvas x:Name="myGrid" HorizontalAlignment="Left" Height="500" Margin="10,31,0,0" VerticalAlignment="Top" Width="500" Background="#FF84FF5E"/>
-        <Button Content="SOX" HorizontalAlignment="Left" Height="48" Margin="692,189,0,0" VerticalAlignment="Top" Width="93" Click="Button_Click_4"/>
-        <Button Content="|f(x)|" HorizontalAlignment="Left" Height="48" Margin="535,242,0,0" VerticalAlignment="Top" Width="93" RenderTransformOrigin="-1.721,0.586" Click="Button_Click_2"/>
-        <Button Content="f(|X|)" HorizontalAlignment="Left" Height="48" Margin="535,295,0,0" VerticalAlignment="Top" Width="93" Click="Button_Click_3"/>
-        <Button Content="S(0,0)" HorizontalAlignment="Left" Height="48" Margin="692,242,0,0" VerticalAlignment="Top" Width="93"/>
-        <Button Content="SOY" HorizontalAlignment="Left" Height="48" Margin="535,189,0,0" VerticalAlignment="Top" Width="93" Click="Button_Click_5"/>
-        <Button Content="Vector" HorizontalAlignment="Left" Height="48" Margin="535,464,0,0" VerticalAlignment="Top" Width="93" Click="Button_Click_1" Background="#FF66D755"/>
-        <Button Content="k*(f(x))" HorizontalAlignment="Left" Height="48" Margin="535,348,0,0" VerticalAlignment="Top" Width="93"/>
-        <Button Content="f(k*x)" HorizontalAlignment="Left" Height="48" Margin="535,401,0,0" VerticalAlignment="Top" Width="93"/>
-        <TextBox HorizontalAlignment="Left" Height="48" Margin="743,401,0,0" TextWrapping="Wrap" Text="0" VerticalAlignment="Top" Width="55" TextAlignment="Center" FontSize="24"/>
-        <TextBox HorizontalAlignment="Left" Height="48" Margin="743,348,0,0" TextWrapping="Wrap" Text="0" VerticalAlignment="Top" Width="55" FontSize="24" TextAlignment="Center"/>
-        <TextBox x:Name="VectorY" HorizontalAlignment="Left" Height="42" Margin="743,464,0,0" TextWrapping="Wrap" Text="0" VerticalAlignment="Top" Width="55" FontSize="24" TextAlignment="Center"/>
-        <TextBox x:Name="VectorX" HorizontalAlignment="Left" Height="42" Margin="656,464,0,0" TextWrapping="Wrap" Text="0" VerticalAlignment="Top" Width="55" FontSize="24" TextAlignment="Center"/>
-        <Label Content="]" HorizontalAlignment="Left" Height="99" Margin="790,430,0,0" VerticalAlignment="Top" Width="33" FontSize="64"/>
-        <Label Content="[" HorizontalAlignment="Left" Height="99" Margin="633,430,0,0" VerticalAlignment="Top" Width="31" FontSize="64"/>
-        <Label Content="," HorizontalAlignment="Left" Height="85" Margin="719,432,0,0" VerticalAlignment="Top" Width="28" FontSize="64"/>
-        <Label Content="k = " HorizontalAlignment="Left" Height="84" Margin="656,323,0,0" VerticalAlignment="Top" Width="129" FontSize="48"/>
-        <Label Content="k = " HorizontalAlignment="Left" Height="84" Margin="656,380,0,0" VerticalAlignment="Top" Width="129" FontSize="48"/>
-        <Label Content="The transformation function: " HorizontalAlignment="Left" Height="63" Margin="515,141,0,0" VerticalAlignment="Top" Width="325" FontSize="24" FontWeight="Bold" FontFamily="Segoe UI Symbol"/>
+        Title="MainWindow" Height="800" Width="1200
+        ">
+    <Grid x:Name="myGrid2" Margin="0,0,-6.8,0.4" Background="#FFF9FAF9" MouseMove="myGrid2_MouseMove">
+        <Canvas x:Name="myGrid" HorizontalAlignment="Left" Height="20" Margin="300,300,0,0" VerticalAlignment="Top" Width="23" Background="#FFF9FAF8" RenderTransformOrigin="4.48,0.368"/>
+        <Button Content="SOX" HorizontalAlignment="Left" Height="50" Margin="791,146,0,0" VerticalAlignment="Top" Width="150" Click="Button_Click_4"/>
+        <Button Content="|f(x)|" HorizontalAlignment="Left" Height="50" Margin="641,146,0,0" VerticalAlignment="Top" Width="150" RenderTransformOrigin="-1.721,0.586" Click="Button_Click_2"/>
+        <Button Content="f(|X|)" HorizontalAlignment="Left" Height="50" Margin="641,196,0,0" VerticalAlignment="Top" Width="150" Click="Button_Click_3"/>
+        <Button Content="S(0,0)" HorizontalAlignment="Left" Height="50" Margin="791,95,0,0" VerticalAlignment="Top" Width="150" Click="Button_Click_7"/>
+        <Button Content="SOY" HorizontalAlignment="Left" Height="50" Margin="641,95,0,0" VerticalAlignment="Top" Width="150" Click="Button_Click_5"/>
+        <Button Content="Vector" HorizontalAlignment="Left" Height="48" Margin="801,327,0,0" VerticalAlignment="Top" Width="93" Click="Button_Click_1" Background="#FF66D755"/>
+        <Button Content="k*(f(x))" HorizontalAlignment="Left" Height="48" Margin="801,211,0,0" VerticalAlignment="Top" Width="93" Click="Button_Click_6"/>
+        <Button Content="f(k*x)" HorizontalAlignment="Left" Height="48" Margin="801,264,0,0" VerticalAlignment="Top" Width="93"/>
+        <TextBox x:Name="BoxK2" HorizontalAlignment="Left" Height="48" Margin="1012,265,0,0" TextWrapping="Wrap" Text="0" VerticalAlignment="Top" Width="55" TextAlignment="Center" FontSize="24"/>
+        <TextBox x:Name="BoxK" HorizontalAlignment="Left" Height="48" Margin="1012,210,0,0" TextWrapping="Wrap" Text="0" VerticalAlignment="Top" Width="55" FontSize="24" TextAlignment="Center"/>
+        <TextBox x:Name="VectorY" HorizontalAlignment="Left" Height="42" Margin="1012,326,0,0" TextWrapping="Wrap" Text="0" VerticalAlignment="Top" Width="55" FontSize="24" TextAlignment="Center"/>
+        <TextBox x:Name="VectorX" HorizontalAlignment="Left" Height="42" Margin="924,326,0,0" TextWrapping="Wrap" Text="0" VerticalAlignment="Top" Width="55" FontSize="24" TextAlignment="Center"/>
+        <Label Content="]" HorizontalAlignment="Left" Height="99" Margin="1056,293,0,0" VerticalAlignment="Top" Width="33" FontSize="64"/>
+        <Label Content="[" HorizontalAlignment="Left" Height="99" Margin="899,293,0,0" VerticalAlignment="Top" Width="31" FontSize="64"/>
+        <Label Content="," HorizontalAlignment="Left" Height="85" Margin="985,295,0,0" VerticalAlignment="Top" Width="28" FontSize="64"/>
+        <Label Content="k = " HorizontalAlignment="Left" Height="84" Margin="922,186,0,0" VerticalAlignment="Top" Width="84" FontSize="48"/>
+        <Label Content="k = " HorizontalAlignment="Left" Height="84" Margin="922,243,0,0" VerticalAlignment="Top" Width="84" FontSize="48"/>
+        <Label Content="The transformation function: " HorizontalAlignment="Left" Height="43" Margin="636,52,0,0" VerticalAlignment="Top" Width="325" FontSize="24" FontWeight="Bold" FontFamily="Segoe UI Symbol"/>
+        <Label x:Name="MouseX" Content="X = ###" HorizontalAlignment="Left" Height="54" Margin="631,504,0,0" VerticalAlignment="Top" Width="150" FontSize="18.667" FontWeight="Bold"/>
+        <Label x:Name="MouseY" Content="Y = ###" HorizontalAlignment="Left" Height="33" Margin="820,504,0,0" VerticalAlignment="Top" Width="162" FontSize="18.667" FontWeight="Bold"/>
+        <Label Content="Mouse position:" HorizontalAlignment="Left" Height="44" Margin="631,460,0,0" VerticalAlignment="Top" Width="150" FontSize="18.667"/>
+        <Label x:Name="ErrorVector" Content="" HorizontalAlignment="Left" Height="37" Margin="600,10,0,0" VerticalAlignment="Top" Width="400" FontSize="16" Background="{x:Null}" Foreground="#FFFA0B0B" FontWeight="Bold"/>
+        <TextBox x:Name="ShowValue" HorizontalAlignment="Left" Height="32" Margin="869,380,0,0" TextWrapping="Wrap" Text="0" VerticalAlignment="Top" Width="50" FontSize="18.667" TextAlignment="Center"/>
+        <Label x:Name="ValueFunction" Content="f(x) = ###" HorizontalAlignment="Left" Height="43" Margin="631,412,0,0" VerticalAlignment="Top" Width="364" FontSize="18.667" FontWeight="Bold"/>
+        <Button Content="Show value function for x = " HorizontalAlignment="Left" Height="32" Margin="636,380,0,0" VerticalAlignment="Top" Width="228" Click="Button_Click_8"/>
+        <Button Content="Clear" HorizontalAlignment="Left" Height="50" Margin="941,95,0,0" VerticalAlignment="Top" Width="150" Click="Button_Click_9"/>
+        <Label x:Name="ModificationFunction" Content="f(x)" HorizontalAlignment="Left" Height="37" Margin="36,591,0,0" VerticalAlignment="Top" Width="470"/>
+        <Button Content="Draw actualy graph" HorizontalAlignment="Left" Height="50" Margin="941,145,0,0" VerticalAlignment="Top" Width="150" Click="Button_Click_9"/>
     </Grid>
 </Window>
