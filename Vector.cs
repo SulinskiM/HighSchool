@@ -26,5 +26,19 @@ namespace WpfApplication1
             this.X = 0;
             this.Y = 0;
         }
+        public void Add(Vector vector)
+        {
+            this.X += vector.X;
+            this.Y += vector.Y;
+        }
+        public void MultiplyVectorY(int i)
+        {
+            this.Y *= i;
+        }
+
+        public void MultiplyVectorX(int v)
+        {
+            this.X *= v;
+        }
     }
 }

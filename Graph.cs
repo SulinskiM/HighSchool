@@ -34,15 +34,16 @@ namespace WpfApplication1
                 case 1: myLine.Stroke = System.Windows.Media.Brushes.DarkOrange; break;
                 case 2: myLine.Stroke = System.Windows.Media.Brushes.DarkViolet; break;
                 case 3: myLine.Stroke = System.Windows.Media.Brushes.DarkGreen; break;
-                case 4: myLine.Stroke = System.Windows.Media.Brushes.Yellow; break;
+                case 4: myLine.Stroke = System.Windows.Media.Brushes.Indigo; break;
                 case 5: myLine.Stroke = System.Windows.Media.Brushes.Tomato; break;
                 case 6: myLine.Stroke = System.Windows.Media.Brushes.Purple; break;
                 case 7: myLine.Stroke = System.Windows.Media.Brushes.RoyalBlue; break;
+                case 8: myLine.Stroke = System.Windows.Media.Brushes.Black; break;
             }
-            myLine.X1 = Value[i+1000].X;
-            myLine.X2 = Value[i+999].X;
-            myLine.Y1 = Value[i+1000].Y;
-            myLine.Y2 = Value[i+999].Y;
+            myLine.X1 = Value[i].X;
+            myLine.X2 = Value[i-1].X;
+            myLine.Y1 = Value[i].Y;
+            myLine.Y2 = Value[i-1].Y;
             myLine.HorizontalAlignment = HorizontalAlignment.Left;
             myLine.VerticalAlignment = VerticalAlignment.Center;
             myLine.StrokeThickness = 2;
@@ -50,9 +51,8 @@ namespace WpfApplication1
         }
         public virtual void DrawGraph(Canvas myGrid, int color)
         {
-            for (int i = -999; i <=1000; i++)
-                //if (FieldFunction[i+1000])
-                    //if(Value[i-1]>-250)
+            for (int i = 1; i <=2000; i++)
+                if (FieldFunction[i])
                         DrawLine(myGrid, i, color);
         }
     }

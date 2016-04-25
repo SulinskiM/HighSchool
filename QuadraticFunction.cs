@@ -6,7 +6,11 @@ using System.Threading.Tasks;
 
 namespace WpfApplication1
 {
-    class QuadraticFunction
+    class QuadraticFunction : Graph
     {
+        public override int CountValue(int i)
+        {
+            return -i*i;
+        }
     }
 }
