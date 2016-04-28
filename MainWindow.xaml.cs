@@ -13,218 +13,250 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace WpfApplication1
+namespace Graph
 {
     /// <summary>
     /// Interaction logic for MainWindow.xaml
     /// </summary>
     public partial class MainWindow : Window
     {
-        //Object down draw function
-        Graph Function;
-
+        GraphOfFunction GraphFunction;
         public MainWindow()
         {
             InitializeComponent();
-
-            //Draw grill and Cartesian
-            LineDraw.DrawNet(myGrid);
-            LineDraw.DrawCartesian(myGrid);
-
-            Function = new LineFunction();
+            Ruler.DrawNet(canvas);
+            Ruler.DrawCartesian(canvas);
+            GraphFunction = new LineFunction();
+            GraphFunction.DrawGraph(canvas, 1);
         }
 
-        private void ZeroOfBox(TextBox box1, TextBox box2)
+        //TODO: Transform graph function
+        private void AbsFunction_Click(object sender, RoutedEventArgs e)
         {
-            box1.Text = "0";
-            box2.Text = "0";
+            GraphFunction.AbsoluteValueFunction();
+            GraphFunction.DrawGraph(canvas, 6);
+            SetUp(FunctionPattern, GraphFunction.ToString());
         }
-        private void ZeroOfBox(TextBox box1, TextBox box2, string Value)
+
+        private void VectorButton_Click(object sender, RoutedEventArgs e)
         {
-            box1.Text = "0";
-            box2.Text = "0";
+            Vector vector = LoadVector(TextBoxVectorX, TextBoxVectorY, Error);
+            GraphFunction.ActualVector.Add(vector);
+            GraphFunction.TransformAboutVector(vector);
+            GraphFunction.DrawGraph(canvas, 5);
+            SetUp(FunctionPattern, GraphFunction.ToString());
+            SetUp($" -> Vector[{vector.X}, {vector.Y}]", Transform);
         }
-        private void NullObject(Label label, string value)
+
+        private void SymXButton_Click(object sender, RoutedEventArgs e)
         {
-            label.Content = value;
+            GraphFunction.SymmetryOX();
+            GraphFunction.DrawGraph(canvas, 4);
+            SetUp(FunctionPattern, GraphFunction.ToString());
+            SetUp("-> S axis X", Transform);
+        }
+
+        private void SymYButton_Click(object sender, RoutedEventArgs e)
+        {
+            GraphFunction.SymmetryOY();
+            GraphFunction.DrawGraph(canvas, 3);
+            SetUp(FunctionPattern, GraphFunction.ToString());
+            SetUp("-> S axis Y", Transform);
+        }
+
+        private void SymZeroButton_Click(object sender, RoutedEventArgs e)
+        {
+            GraphFunction.SymmetryPointZero();
+            GraphFunction.DrawGraph(canvas, 2);
+            SetUp(FunctionPattern, GraphFunction.ToString());
+            SetUp("-> S point zero", Transform);
+        }
+
+        private void AbsArgumentButton_Click(object sender, RoutedEventArgs e)
+        {
+            GraphFunction.AbsoluteValueArgument();
+            GraphFunction.DrawGraph(canvas, 1);
+            SetUp(FunctionPattern, GraphFunction.ToString());
+            SetUp("-> f(|x|)", Transform);
+        }
+
+        private void PowerButton_Click(object sender, RoutedEventArgs e)
+        {
+            GraphFunction.PowerFunction(LoadPower(TextBoxPower, Error));
+            GraphFunction.DrawGraph(canvas, 1);
+            SetUp(FunctionPattern, GraphFunction.ToString());
+            SetUp("-> k*f(x)", Transform);
+        }
+
+        //TODO: Load data from user
+        private double LoadPower(TextBox power, TextBlock error)
+        {
+            try
+            {
+                SetUp(Error, "");
+                if (Convert.ToDouble(power.Text) != 0)
+                    return Convert.ToDouble(power.Text);
+                else
+                    throw new FunctionError("K cant't equel to zero!");
+            }
+            catch (Exception ex)
+            {
+                error.Text = ex.Message;
+                return 1;
+            }
+            finally
+            {
+                SetUp(TextBoxPower, "0");
+            }
+        }
+
+        private Vector LoadVector(TextBox x, TextBox y, TextBlock error)
+        {
+            try
+            {
+                SetUp(Error, "");
+                Vector vector = new Vector();
+                vector.X = int.Parse(x.Text) * 10;
+                vector.Y = int.Parse(y.Text) * 10;
+                return vector;
+            }
+            catch (Exception ex)
+            {
+                error.Text = ex.Message;
+                Vector vector;
+                return vector = new Vector(0, 0);
+            }
+            finally
+            {
+                SetUp(x, y, "0");
+            }
+        }
+        private PropertiesLineFunction LoadProperties(TextBox a, TextBox b)
+        {
+            try
+            {
+                SetUp(Error, "");
+                return new PropertiesLineFunction(double.Parse(a.Text), double.Parse(b.Text) * 10);
+            }
+            catch(FormatException ex)
+            {
+                Error.Text = ex.Message;
+                return new PropertiesLineFunction(1, 0);
+            }   
+        }
+        private PropertiesQuadraticFunction LoadPropertiesQuadratic(TextBox a, TextBox b, TextBox c)
+        {
+            try
+            {
+                SetUp(Error, "");
+                return new PropertiesQuadraticFunction(double.Parse(a.Text), double.Parse(b.Text), double.Parse(c.Text));
+            }
+            catch(FormatException ex)
+            {
+                Error.Text = ex.Message;
+                return new PropertiesQuadraticFunction(1, 0, 0);
+            }
+        }
+        private void SetUp(TextBox x, TextBox y, String value)
+        {
+            x.Text = value;
+            y.Text = value;
+        }
+        private void SetUp(TextBox x, String value)
+        {
+            x.Text = value;
+        }
+        private void SetUp(TextBlock text, String value)
+        {
+            text.Text = value;
+        }
+        private void SetUp(String value, TextBlock text)
+        {
+            text.Text += value;
+        }
+
+        //TODO: Modul show position mouse
+        private void canvas_MouseMove(object sender, MouseEventArgs e)
+        {
+            ShowPositionMouse(e);
+        }
+
+        private void ShowPositionMouse(MouseEventArgs e)
+        {
+            try
+            {
+                Point mouseLocation = e.GetPosition(canvas);
+
+                MousePositionX.Text = Convert.ToString(Math.Round(mouseLocation.X / 10, 1));
+                MousePositionY.Text = Convert.ToString(-Math.Round(mouseLocation.Y / 10, 1));
+            }
+            catch (Exception ex)
+            {
+                Error.Text = ex.Message;
+            }
+        }
+
+        private void MainGrid_MouseMove(object sender, MouseEventArgs e)
+        {
+            MousePositionX.Text = "###";
+            MousePositionY.Text = "###";
+        }
+
+        //TODO: Draw graph function
+        private void LineDrawButton_Click(object sender, RoutedEventArgs e)
+        {
+            GraphFunction = new LineFunction(LoadProperties(PropLineFunctionA, PropLineFunctionB));
+            GraphFunction.DrawGraph(canvas, 1);
+            SetUp(FunctionPattern, GraphFunction.ToString());
+            SetUp(Transform, "f(x) = x");
+        }
+
+        private void QuadraticDrawButton_Click(object sender, RoutedEventArgs e)
+        {
+            GraphFunction = new QuadraticFunction(LoadPropertiesQuadratic(PropQuadraticFunctionA, PropQuadraticFunctionB, PropQuadraticFunctionC));
+            GraphFunction.DrawGraph(canvas, 1);
+            SetUp(FunctionPattern, GraphFunction.ToString());
+            SetUp(Transform, "f(x) = x*x");
+        }
+
+        private void RootDrawButton_Click(object sender, RoutedEventArgs e)
+        {
+            GraphFunction = new RootFunction();
+            GraphFunction.DrawGraph(canvas, 1);
+            SetUp(FunctionPattern, GraphFunction.ToString());
+            SetUp(Transform, "f(x) = Sqrt(x)");
+        }
+
+        private void ActualDrawButton_Click(object sender, RoutedEventArgs e)
+        {
+            GraphFunction.DrawGraph(canvas, 0);
+            SetUp(FunctionPattern, GraphFunction.ToString());
+        }
+
+        private void CubicDrawButton_Click(object sender, RoutedEventArgs e)
+        {
+            GraphFunction = new CubicFunction();
+            GraphFunction.DrawGraph(canvas, 0);
+            SetUp(FunctionPattern, GraphFunction.ToString());
+            SetUp(Transform, "f(x) = x*x*x");
+            SetUp(Transform, "f( x )");
         }
 
         private void Button_Click(object sender, RoutedEventArgs e)
         {
-            Function = new Graph();
+            canvas.Children.Clear();
+            Ruler.DrawNet(canvas);
+            Ruler.DrawCartesian(canvas);
         }
-
-        //Transport function about vector
-        private void Button_Click_1(object sender, RoutedEventArgs e)
+        private void ShowValueButton_Click(object sender, RoutedEventArgs e)
         {
             try
             {
-                Function.Vector.X = Convert.ToInt32(VectorX.Text) * 10;
-                Function.Vector.Y = Convert.ToInt32(VectorY.Text) * 10;
-                Function.ActualVector.Add(Function.Vector);
-                if (Function.Vector.X != 0 || Function.Vector.Y != 0)
-                    ModificationFunction.Content += " -> Vector [" + VectorX.Text + " , " + VectorY.Text + "]";
-                Function.TransformAboutVector();
-                Function.DrawGraph(myGrid, 0);
-                wzor.Content = "f(x) = " + Function.ToString();
+                ValueForX.Text = Convert.ToString(GraphFunction.Value[(int)((Convert.ToDouble(ArgumerntX.Text)) + 1000)].Y);
             }
-            catch (Exception ex)
+            catch(FormatException ex)
             {
-                ErrorVector.Content = ex.Message;
-            }
-            finally
-            {
-                ZeroOfBox(VectorX, VectorY);
-                Function.Vector.NullOfVector();
-            }
-        }
-
-        //Calculate absolute value function
-        private void Button_Click_2(object sender, RoutedEventArgs e)
-        {
-            Function.AbsoluteValueFunction();
-            Function.DrawGraph(myGrid, 1);
-            ModificationFunction.Content += " -> |f(x)|";
-            PatternFunction();
-            wzor.Content = "f(x) = " + Function.ToString();
-        }
-        private void PatternFunction()
-        {
-            if (Function.CharSymX == "-")
-            {
-                Function.LeftSide = "-" + Function.LeftSide;
-                Function.CharSymX = "";
-                Function.SymX = 1;
-            }
-            if (Function.ActualVector.Y != 0)
-            {
-                if (Function.ActualVector.Y < 0)
-                    Function.RightSide += Convert.ToString(Function.ActualVector.Y / 10);
-                else
-                    Function.RightSide += " + " + Convert.ToString(Function.ActualVector.Y / 10);
-                Function.ActualVector.Y = 0;
-            }
-            Function.LeftSide = "|" + Function.LeftSide;
-            Function.RightSide += "|";
-        }
-
-        //Calculate absolute value with argument
-        private void Button_Click_3(object sender, RoutedEventArgs e)
-        {
-            Function.AbsoluteValueArgument();
-            Function.DrawGraph(myGrid, 2);
-            ModificationFunction.Content += " -> f(|x|)";
-            wzor.Content = "f(x) = " + Function.ToString();
-        }
-
-        //Symmetry OX
-        private void Button_Click_4(object sender, RoutedEventArgs e)
-        {
-            Function.SymmetryAsisX();
-            Function.DrawGraph(myGrid, 3);
-            ModificationFunction.Content += " -> SOX";
-            wzor.Content = "f(x) = " + Function.ToString();
-        }
-
-        //Symmetry OY
-        private void Button_Click_5(object sender, RoutedEventArgs e)
-        {
-            Function.SymmetryAxisY();
-            Function.DrawGraph(myGrid, 4);
-            ModificationFunction.Content += " -> SOY";
-            wzor.Content = "f(x) = " + Function.ToString();
-        }
-
-        //Power function
-        private void Button_Click_6(object sender, RoutedEventArgs e)
-        {
-            try
-            {
-                Function.PowerFunction(Convert.ToInt32(PowerFunction.Text));
-                Function.DrawGraph(myGrid, 5);
-            }
-            catch (Exception ex)
-            {
-                ErrorVector.Content = ex.Message;
-            }
-            finally
-            {
-                ZeroOfBox(PowerFunction, BoxK2);
-            }
-        }
-
-        //Symmetry point(0, 0)
-        private void Button_Click_7(object sender, RoutedEventArgs e)
-        {
-            Function.SymmetryPointZero();
-            Function.DrawGraph(myGrid, 6);
-            ModificationFunction.Content += " -> S Point(0, 0)";
-            wzor.Content = "f(x) = " + Function.ToString();
-        }
-
-        //Show value function for x
-        private void Button_Click_8(object sender, RoutedEventArgs e)
-        {
-            try
-            {
-                int b = Convert.ToInt32(ShowValue.Text);
-                var value =
-                    from a in Function.Value
-                    where a.X == b * 10
-                    select a.Y;
-                foreach (var item in value) { ValueFunction.Content = "f(x) = " + Convert.ToString(-item / 10); }
-            }
-            catch (Exception ex)
-            {
-                ErrorVector.Content = ex.Message;
-            }
-        }
-
-        //Clear window
-        private void Button_Click_9(object sender, RoutedEventArgs e)
-        {
-            
-            InitializeComponent();
-        }
-
-        //Set up line function
-        private void Button_Click_10(object sender, RoutedEventArgs e)
-        {
-            Function = new LineFunction();
-        }
-
-        //Draw graph actualy function
-        private void Button_Click_12(object sender, RoutedEventArgs e)
-        {
-            Function.DrawGraph(myGrid, 8);
-            wzor.Content = "f(x) = " + Function.ToString();
-        }
-
-        //Show position mouse relative point(0, 0)
-        private void myGrid2_MouseMove(object sender, MouseEventArgs e)
-        {
-            ShowMousePosition(e);
-        }
-        private void ShowMousePosition(MouseEventArgs e)
-        {
-            try
-            {
-                Point mouseLocation = e.GetPosition(myGrid);
-
-                if (Math.Round(mouseLocation.X / 10, 2) <= 30 && Math.Round(mouseLocation.Y / 10, 2) <= 30)
-                {
-                    MouseX.Content = "X = " + Convert.ToString(Math.Round(mouseLocation.X / 10, 2));
-                    MouseY.Content = "Y = " + Convert.ToString(-Math.Round(mouseLocation.Y / 10, 2));
-                }
-                else
-                {
-                    MouseX.Content = "X = ###";
-                    MouseY.Content = "Y = ###";
-                }
-            }
-            catch (Exception ex)
-            {
-                ErrorVector.Content = ex.Message;
+                Error.Text = ex.Message;
             }
         }
     }

@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace WpfApplication1
+namespace Graph
 {
     class Vector
     {
@@ -21,6 +21,11 @@ namespace WpfApplication1
             this.X = x;
             this.Y = y;
         }
+        public Vector(Vector vector)
+        {
+            this.X = vector.X;
+            this.Y = vector.Y;
+        }
         public void NullOfVector()
         {
             this.X = 0;
@@ -35,7 +40,6 @@ namespace WpfApplication1
         {
             this.Y *= i;
         }
-
         public void MultiplyVectorX(int v)
         {
             this.X *= v;

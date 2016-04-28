@@ -3,180 +3,139 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
 
-
-namespace WpfApplication1
+namespace Graph
 {
+    //Struct stores point graph
+    struct PointGraph
+    {
+        public int X; //Position x
+        public double Y; //Position y
+        public bool Belong; //Is point belong down graph
+        //If belong == true Point belong down grapf else point not belong graph
+    }
+
     class Function
     {
-        public bool[] FieldFunction;
-        public Point[] Value;
-        private const int SCALEGRAPH = 10;
-        public Vector Vector { get; set; }
-        public Vector ActualVector { get; set; }
-        public int SymY { get; set; }
-        public int SymX { get; set; }
-        public int AbsX { get; set; }
-        public string PatternFunction;
-        public string LeftSide;
-        public string RightSide;
-        public string CharSymX;
-        public string CharSymY;
-        public string CharAbsX;
-        public bool Sy;
+        public PointGraph[] Value; //Table which stores points graph
+        protected const int QuantilyPoint = 2001; //Variable stores quantily points
+        public Vector ActualVector { get; set; } //Properties which stores current displacement vector graph
+        private double _functionPower = 1;
+        public double FunctionPowerValue
+        {
+            get
+            {
+                return _functionPower;
+            }
+            set
+            {
+                if (value != 0)
+                    _functionPower = value;
+            }
+        }
+        public string Transform { get; set; } = "f(x)";
 
+        //Constructor default
         public Function()
         {
-            FieldFunction = new bool[2001];
-            for (int i = 0; i <= 2000; i++)
-                FieldFunction[i] = true;
-            Value = new Point[2001];
-            ChargeValue();
-            Vector = new Vector();
+            Value = new PointGraph[QuantilyPoint];
             ActualVector = new Vector();
-            PatternFunction = "x";
-            SymY = 1;
-            SymX = 1;
-            AbsX = 1;
-            Sy = true;
+            CreateFunction();
         }
-
-        //Calculate value function for x (f(x))
-        public virtual int CountValue(int i)
+        //Create point graph
+        protected void CreateFunction()
         {
-            return -i * i / SCALEGRAPH;
-        }
-        private void ChargeValue()
-        {
-            for (int i = -1000; i <= 1000; i++)
+            for (int i = 0; i < QuantilyPoint; i++)
             {
-                if (FieldFunction[i + 1000])
-                {
-                    Value[i + 1000].X = i;
-                    Value[i + 1000].Y = CountValue(i);
-                }
+                Value[i].Belong = true; //Default each point belong down graph
+                Value[i].X = i - 1000;
+                Value[i].Y = CalculateValue(i - 1000);
             }
         }
-
-        //TODO: Modifity function:
-
-        //Transform about vector
-
-        public void TransformAboutVector()
+        //Calculate value point function
+        protected virtual int CalculateValue(int i)
         {
-            for (int i = -1000; i <= 1000; i++)
-            {
-                this.Value[i + 1000].Y -= this.Vector.Y;
-                this.Value[i + 1000].X -= this.Vector.X;
-            }
-            this.Vector.NullOfVector();
+            throw new NotImplementedException(); //Each derived class must have own increment this function 
         }
 
-        //Symmetry through the axis X
-
-        public void SymmetryAsisX()
-        {
-            for (int i = -1000; i <= 1000; i++) this.Value[i + 1000].Y = -this.Value[i + 1000].Y;
-            SymX *= -1;
-            ActualVector.MultiplyVectorY(-1);
-        }
-
-        //Symmetry through the axis Y
-
-        public void SymmetryAxisY()
-        {
-            for (int i = -1000; i <= 1000; i++) Value[i + 1000].X *= -1;
-            if(Sy==true)
-            ActualVector.MultiplyVectorX(-1);
-            SymY *= -1;
-            Sy = false;
-        }
-
-        //Symmetry through the point (0,0)
-
-        public void SymmetryPointZero()
-        {
-            SymmetryAsisX();
-            SymmetryAxisY();
-        }
-
-        //The absolute value of function (|f(x)|)
-
+        //Function calculate absolute value from each point function(point.y = value.y)
         public void AbsoluteValueFunction()
         {
-            for (int i = -1000; i <= 1000; i++)
-            {
-                this.Value[i + 1000].Y = -Math.Abs(this.Value[i + 1000].Y);
-            }
+            for (int i = 0; i < QuantilyPoint; i++)
+                Value[i].Y = -Math.Abs(Value[i].Y);
+            Transform += " -> Absolute value from function";
         }
 
-        //The absolute value of argument (f(|x|))
+        //Function move each point about vector    
+        public void TransformAboutVector(Vector vector)
+        {
+            for (int i = 0; i < QuantilyPoint; i++)
+            {
+                this.Value[i].Y -= vector.Y;
+                this.Value[i].X -= vector.X;
+            }
+            Transform += $" -> Vector[{vector.X}, {vector.Y}]";
+        }
+
+        //Function transform by symmetry axis x Cartesian [f(x) -Sox-> -f(x)]
+        public void SymmetryOX()
+        {
+            for (int i = 0; i < QuantilyPoint; i++)
+                Value[i].Y *= -1;
+            Transform += " -> S axis X";
+        }
+
+        //Function transform by symmetry axis Y Cartesian [f(x) -Soy-> f(-x)]
+        private void swap(PointGraph a, PointGraph b)
+        {
+            PointGraph c = new PointGraph();
+            c = a;
+            a = b;
+            b = c;
+        }
+        public void SymmetryOY()
+        {
+            for (int i = 0; i < QuantilyPoint; i++)
+                Value[i].X *= -1;
+            for (int i = 0, j = 2000; i != j; i++, j--)
+                swap(Value[i], Value[j]);
+            Transform += " -> S axis Y";
+        }
+
+        //Function transform by symmetry point zero Cartesian [f(x) -S point(0,0)-> -f(-x)]
+        public void SymmetryPointZero()
+        {
+            SymmetryOX();
+            SymmetryOY();
+        }
+
+        //If argument < 0 -> f(x)=f(Abs(x))
 
         public void AbsoluteValueArgument()
         {
             int i = 0;
-            while (Value[i].X != 0) { i++; }
-
-            int a = 2;
-            for (int j = i - 1; j > 300; j--)
+            while (Value[i].X != 0) i++;
+            for (int j = i - 1, a = 2; j > 300; j--, a += 2)
             {
+                Value[j].Belong = Value[j + a].Belong;
                 Value[j].Y = Value[j + a].Y;
-                a += 2;
             }
-            AbsX *= -1;
-            SymY = 1;
+            Transform += " -> Absolute value from argument";
         }
 
-        //k*f(x)
+        //Power function
 
-        public void PowerFunction(int k)
+        public void PowerFunction(double power)
         {
-            for (int i = -1000; i < 1000; i++)
-                Value[i + 1000].Y *= k;
+            for (int i = 0; i < QuantilyPoint; i++)
+                Value[i].Y = Convert.ToInt32(Value[i].Y * power);
+            FunctionPowerValue = Math.Round(FunctionPowerValue*power, 2);
         }
 
-        //f(k*x)
-
-        public void PowerArgument(int k)
-        {
-
-        }
-
+        //Convert to pattern
         public override string ToString()
         {
-            if (SymX == -1) CharSymX = "-"; else CharSymX = "";
-            if (SymY == -1) CharSymY = "-"; else CharSymY = "";
-            if (AbsX == -1) CharAbsX = "|"; else CharAbsX = "";
-            if (ActualVector.X != 0)
-            {
-                if (ActualVector.X < 0)
-                    PatternFunction = "(" + CharSymY + "x" + Convert.ToString(ActualVector.X / 10) + ")*(" + CharSymY + "x" + Convert.ToString(ActualVector.X / 10) + ")";
-                else
-                {
-                    if (ActualVector.X > 0)
-                        PatternFunction = "(" + CharSymY + "x+" + Convert.ToString(ActualVector.X / 10) + ")*(" + CharSymY + "x+" + Convert.ToString(ActualVector.X / 10) + ")";
-                }
-            }
-            else
-                PatternFunction = "(" + CharSymY + CharAbsX+"x"+CharAbsX+")*(" + CharSymY +CharAbsX+ "x"+CharAbsX+")";
-            if (ActualVector.Y != 0)
-            {
-                if (ActualVector.Y > 0)
-                    return CharSymX + LeftSide + PatternFunction + RightSide + "+" + Convert.ToString(ActualVector.Y / 10);
-                else
-                    return CharSymX + LeftSide + PatternFunction + RightSide + Convert.ToString(ActualVector.Y / 10);
-            }
-            else
-                return CharSymX + LeftSide + PatternFunction + RightSide;
+            return "f(x)";
         }
     }
 }
