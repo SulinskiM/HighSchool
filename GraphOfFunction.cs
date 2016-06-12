@@ -12,12 +12,13 @@ namespace Graph
     class GraphOfFunction : Function
     {
         public Line myLine;
-        private static int Color;
+        private static int Color = 0;
+        public int TypeFunction { get; set; }
+
         public GraphOfFunction()
             : base()
         {
             myLine = new Line();
-            Color = 0;
         }
 
         private void DrawLine(Canvas myGrid, int i, int color)
@@ -27,23 +28,14 @@ namespace Graph
             switch (Color)
             {
                 case 0: myLine.Stroke = System.Windows.Media.Brushes.White; break;
-                case 1: myLine.Stroke = System.Windows.Media.Brushes.Azure; break;
-                case 2: myLine.Stroke = System.Windows.Media.Brushes.Blue; break;
-                case 3: myLine.Stroke = System.Windows.Media.Brushes.DarkGreen; break;
-                case 4: myLine.Stroke = System.Windows.Media.Brushes.Brown; break;
-                case 5: myLine.Stroke = System.Windows.Media.Brushes.Tomato; break;
-                case 6: myLine.Stroke = System.Windows.Media.Brushes.Chocolate; break;
-                case 7: myLine.Stroke = System.Windows.Media.Brushes.Green; break;
-                case 8: myLine.Stroke = System.Windows.Media.Brushes.LightSkyBlue; break;
-                case 9: myLine.Stroke = System.Windows.Media.Brushes.Lime; break;
-                case 10: myLine.Stroke = System.Windows.Media.Brushes.Silver; break;
-                case 12: myLine.Stroke = System.Windows.Media.Brushes.Plum; break;
-                case 13: myLine.Stroke = System.Windows.Media.Brushes.OrangeRed; break;
-                case 14: myLine.Stroke = System.Windows.Media.Brushes.LightGreen; break;
-                case 15: myLine.Stroke = System.Windows.Media.Brushes.LightBlue; break;
-                case 16: myLine.Stroke = System.Windows.Media.Brushes.Khaki; break;
-                case 17: myLine.Stroke = System.Windows.Media.Brushes.Firebrick; break;
-                case 18: myLine.Stroke = System.Windows.Media.Brushes.Aqua; break;
+                case 1: myLine.Stroke = System.Windows.Media.Brushes.DarkBlue; break;
+                case 2: myLine.Stroke = System.Windows.Media.Brushes.Orange; break;
+                case 3: myLine.Stroke = System.Windows.Media.Brushes.Blue; break;
+                case 4: myLine.Stroke = System.Windows.Media.Brushes.DarkOrange; break;
+                case 5: myLine.Stroke = System.Windows.Media.Brushes.Lime; break;
+                case 6: myLine.Stroke = System.Windows.Media.Brushes.Yellow; break;
+                case 7: myLine.Stroke = System.Windows.Media.Brushes.Red; break;
+                case 8: myLine.Stroke = System.Windows.Media.Brushes.Silver; break;
             }
             myLine.X1 = Value[i].X;
             myLine.X2 = Value[i - 1].X;

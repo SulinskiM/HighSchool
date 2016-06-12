@@ -38,7 +38,7 @@
 
                 <Button Name="VectorButton" Content="Vector" 
                     Margin="5" Height="40"
-                    Click="VectorButton_Click"/>
+                    Click="VectorButton_Click" Background="Orange"/>
                 
                 <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Margin="0,10">
                     <Label Content="Vector = [" FontSize="20"/>
@@ -50,22 +50,22 @@
                 
                 <Button Name="SymXButton" Content="Symmetry X"
                     Margin="5" Height="40"
-                    Click="SymXButton_Click"/>
+                    Click="SymXButton_Click" Background="Orange"/>
                 <Button Name="SymYButton" Content="Symmetry Y"
                     Margin="5" Height="40"
-                    Click="SymYButton_Click"/>
+                    Click="SymYButton_Click" Background="Orange"/>
                 <Button Name="SymZeroButton" Content="Symmetry point(0,0)"
                     Margin="5" Height="40"
-                    Click="SymZeroButton_Click"/>
+                    Click="SymZeroButton_Click" Background="Orange"/>
                 <Button Name="AbsFunctionButton" Content="Absolute function"
                     Margin="5" Height="40"
-                    Click="AbsFunction_Click"/>
+                    Click="AbsFunction_Click" Background="Orange"/>
                 <Button Name="AbsArgumentButton" Content="Absolute argument" 
                     Margin="5" Height="40"
-                    Click="AbsArgumentButton_Click"/>
+                    Click="AbsArgumentButton_Click" Background="Orange"/>
                 <Button Name="PowerButton" Content="Power function"
                     Margin="5" Height="40"
-                    Click="PowerButton_Click"/>
+                    Click="PowerButton_Click" Background="Orange"/>
 
                 <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Margin="0,10">
                     <Label Content="K = " FontSize="20"/>
@@ -86,15 +86,15 @@
             
             <StackPanel>
 
-                <Button Content="Clear area" Height="40" Margin="5" Click="Button_Click"/>
-                <Button Name="LineDrawButton" Height="40" Margin="5" Content="Line function" Click="LineDrawButton_Click"/>
+                <Button Content="Clear area" Height="40" Margin="5" Click="Button_Click" Background="Gold"/>
+                <Button Name="LineDrawButton" Height="40" Margin="5" Content="Line function" Click="LineDrawButton_Click" Background="#FFFAFA41"/>
                 <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
                     <Label Content="a = " FontSize="20"/>
                     <TextBox Name="PropLineFunctionA" Text="1" MinWidth="50" FontSize="26" FontWeight="Bold"/>
                     <Label Content="b = " FontSize="20"/>
                     <TextBox Name="PropLineFunctionB" Text="0" MinWidth="50" FontSize="26" FontWeight="Bold"/>
                 </StackPanel>
-                <Button Name="QuadraticDrawButton" Height="40" Margin="5" Content="Quadratic Function" Click="QuadraticDrawButton_Click"/>
+                <Button Name="QuadraticDrawButton" Height="40" Margin="5" Content="Quadratic Function" Click="QuadraticDrawButton_Click" Background="#FFFAFA41"/>
                 <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
                     <Label Content="a = " FontSize="20"/>
                     <TextBox Name="PropQuadraticFunctionA" Text="1" MinWidth="50" FontSize="26" FontWeight="Bold"/>
@@ -103,29 +103,26 @@
                     <Label Content="c = " FontSize="20"/>
                     <TextBox Name="PropQuadraticFunctionC" Text="0" MinWidth="50" FontSize="26" FontWeight="Bold"/>
                 </StackPanel>
-                <Button Name="RootDrawButton" Height="40" Margin="5" Content="Root function" Click="RootDrawButton_Click"/>
-                <Button Name="CubicDrawButton" Height="40" Margin="5" Content="Cubic function" Click="CubicDrawButton_Click"/>
-                <Button Name="ActualDrawButton" Height="40" Margin="5" Content="Actual function" Click="ActualDrawButton_Click"/>
-                <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
-                    <Button Name="ShowValueButton" Content="Show value function for x = " FontSize="20" Click="ShowValueButton_Click"/>
-                    <TextBox Name="ArgumerntX" Text="0" MinWidth="50" FontSize="26" FontWeight="Bold"/>
-                    
-                    <TextBlock Name="ValueForX" Text="fsa" MinWidth="50" FontSize="26" FontWeight="Bold"/>
+                <Button Name="RootDrawButton" Height="40" Margin="5" Content="Root function" Click="RootDrawButton_Click" Background="#FFFAFA41"/>
+                <Button Name="CubicDrawButton" Height="40" Margin="5" Content="Cubic function" Click="CubicDrawButton_Click" Background="#FFFAFA41"/>
+                <Button Name="ActualDrawButton" Height="40" Margin="5" Content="Actual function" Click="ActualDrawButton_Click" Background="#FFFAFA41"/>
+                
+                <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Margin="10">
+                    <Button Content="Save" FontSize="20" MinWidth="50" Margin="5" Click="Save_Click" Background="Gold" Width="80" Height="40"></Button>
+                    <Button Content="Back" FontSize="20" MinWidth="50" Margin="5" Click="Back_Click" Background="Gold" Width="80" Height="40"></Button>
+                    <Button Content="Next" FontSize="20" MinWidth="50" Margin="5" Click="Next_Click" Background="Gold" Width="80"></Button>
                 </StackPanel>
                 <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Margin="10">
-                    <Button Content="Save" FontSize="20" MinWidth="50" Margin="5" Click="Save_Click"></Button>
-                    <Button Content="Back" FontSize="20" MinWidth="50" Margin="5" Click="Back_Click"></Button>
-                    <Button Content="Next" FontSize="20" MinWidth="50" Margin="5" Click="Next_Click"></Button>
-                </StackPanel>
-                <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Margin="10">
-                    <Button Content="Draw" FontSize="20" MinWidth="50" Margin="5" Click="DrawSave_Click"></Button>
+                    <Button Content="Draw" FontSize="20" MinWidth="50" Margin="5" Click="DrawSave_Click" Background="Gold" Height="48" Width="100"></Button>
                     <Label Name="MuchSaves" Content="0/0" FontSize="36" FontWeight="Bold"></Label>
                 </StackPanel>
             </StackPanel>
             
         </StackPanel>
 
-        <TextBlock Name="Error" Grid.Column="2" FontSize="16" FontWeight="Bold" TextAlignment="Center" Foreground="DarkRed" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+        <TextBlock Name="Error" Grid.Column="2" FontSize="16" FontWeight="Bold" 
+                   TextAlignment="Center" Foreground="DarkRed" HorizontalAlignment="Center" 
+                   VerticalAlignment="Center"/>
     
     </Grid>
 </Window>

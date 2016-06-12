@@ -10,7 +10,7 @@ namespace Graph
     {
         public CubicFunction() : base()
         {
-
+            TypeFunction = 2;
         }
 
         //Calculate value for line function

@@ -10,6 +10,7 @@ namespace Graph
     {
         public RootFunction() : base()
         {
+            TypeFunction = 3;
             ChangeField();
         }
         public void ChangeField()

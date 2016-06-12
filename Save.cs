@@ -10,11 +10,12 @@ namespace Graph
     {
         public int whichSaves { get; set; }
         public int howMuchSaves { get; set; }
+
         private List<GraphOfFunction> saves;
 
         public Save()
         {
-            whichSaves = 0;
+            whichSaves = 1;
             howMuchSaves = 0;
             saves = new List<GraphOfFunction>();
         }
@@ -25,7 +26,7 @@ namespace Graph
         }
         public GraphOfFunction ReturnSave()
         {
-            return saves[whichSaves-1];
+            return saves[whichSaves - 1];
         } 
     }
 }

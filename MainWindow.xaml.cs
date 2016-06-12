@@ -251,17 +251,6 @@ namespace Graph
             Ruler.DrawNet(canvas);
             Ruler.DrawCartesian(canvas);
         }
-        private void ShowValueButton_Click(object sender, RoutedEventArgs e)
-        {
-            try
-            {
-                ValueForX.Text = Convert.ToString(GraphFunction.Value[(int)((Convert.ToDouble(ArgumerntX.Text)) + 1000)].Y);
-            }
-            catch(FormatException ex)
-            {
-                Error.Text = ex.Message;
-            }
-        }
 
         private void Next_Click(object sender, RoutedEventArgs e)
         {
@@ -285,9 +274,12 @@ namespace Graph
 
         private void DrawSave_Click(object sender, RoutedEventArgs e)
         {
-            GraphFunction = save.ReturnSave();
-            GraphFunction.DrawGraph(canvas, 1);
-            SetUp(FunctionPattern, GraphFunction.ToString());
+            if (save.howMuchSaves > 0)
+            {
+                GraphFunction = save.ReturnSave();
+                GraphFunction.DrawGraph(canvas, 1);
+                SetUp(FunctionPattern, GraphFunction.ToString());
+            }
         }
     }
 }

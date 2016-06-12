@@ -24,7 +24,7 @@ namespace Graph
         PropertiesQuadraticFunction properties;
         public QuadraticFunction() : base()
         {
-
+            TypeFunction = 1;
         }
         public QuadraticFunction(PropertiesQuadraticFunction prop)
         {

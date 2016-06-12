@@ -22,7 +22,7 @@ namespace Graph
     {
         public LineFunction() : base()
         {
-
+            TypeFunction = 0;
         }
         public LineFunction(PropertiesLineFunction prop)
         {
