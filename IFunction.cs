@@ -8,13 +8,7 @@ namespace Graph
 {
     interface IFunction
     {
+        void CreateFunction();
         int CalculateValue(int i);
-        void TransformAboutvector(Vector vector);
-        void SymmetryOX();
-        void SymmetryOY();
-        void SymmetryPointZero();
-        void AbsoluteValueFunction();
-        void AbsoluteValueArgument();
-        void PowerFunction(double power);
     }
 }

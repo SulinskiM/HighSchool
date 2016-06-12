@@ -112,7 +112,15 @@
                     
                     <TextBlock Name="ValueForX" Text="fsa" MinWidth="50" FontSize="26" FontWeight="Bold"/>
                 </StackPanel>
-            
+                <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Margin="10">
+                    <Button Content="Save" FontSize="20" MinWidth="50" Margin="5" Click="Save_Click"></Button>
+                    <Button Content="Back" FontSize="20" MinWidth="50" Margin="5" Click="Back_Click"></Button>
+                    <Button Content="Next" FontSize="20" MinWidth="50" Margin="5" Click="Next_Click"></Button>
+                </StackPanel>
+                <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Margin="10">
+                    <Button Content="Draw" FontSize="20" MinWidth="50" Margin="5" Click="DrawSave_Click"></Button>
+                    <Label Name="MuchSaves" Content="0/0" FontSize="36" FontWeight="Bold"></Label>
+                </StackPanel>
             </StackPanel>
             
         </StackPanel>

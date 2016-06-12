@@ -15,7 +15,7 @@ namespace Graph
         //If belong == true Point belong down grapf else point not belong graph
     }
 
-    class Function
+    class Function 
     {
         public PointGraph[] Value; //Table which stores points graph
         protected const int QuantilyPoint = 2001; //Variable stores quantily points
@@ -43,7 +43,7 @@ namespace Graph
             CreateFunction();
         }
         //Create point graph
-        protected void CreateFunction()
+        public void CreateFunction()
         {
             for (int i = 0; i < QuantilyPoint; i++)
             {
@@ -53,7 +53,7 @@ namespace Graph
             }
         }
         //Calculate value point function
-        protected virtual int CalculateValue(int i)
+        public virtual int CalculateValue(int i)
         {
             throw new NotImplementedException(); //Each derived class must have own increment this function 
         }
@@ -72,7 +72,7 @@ namespace Graph
             for (int i = 0; i < QuantilyPoint; i++)
             {
                 this.Value[i].Y -= vector.Y;
-                this.Value[i].X -= vector.X;
+                this.Value[i].X += vector.X;
             }
             Transform += $" -> Vector[{vector.X}, {vector.Y}]";
         }

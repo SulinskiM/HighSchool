@@ -19,6 +19,7 @@ namespace Graph
             myLine = new Line();
             Color = 0;
         }
+
         private void DrawLine(Canvas myGrid, int i, int color)
         {
             myLine = new Line();

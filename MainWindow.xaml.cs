@@ -21,6 +21,7 @@ namespace Graph
     public partial class MainWindow : Window
     {
         GraphOfFunction GraphFunction;
+        Save save;
         public MainWindow()
         {
             InitializeComponent();
@@ -28,6 +29,7 @@ namespace Graph
             Ruler.DrawCartesian(canvas);
             GraphFunction = new LineFunction();
             GraphFunction.DrawGraph(canvas, 1);
+            save = new Save();
         }
 
         //TODO: Transform graph function
@@ -41,6 +43,7 @@ namespace Graph
         private void VectorButton_Click(object sender, RoutedEventArgs e)
         {
             Vector vector = LoadVector(TextBoxVectorX, TextBoxVectorY, Error);
+            vector.X *= -1;
             GraphFunction.ActualVector.Add(vector);
             GraphFunction.TransformAboutVector(vector);
             GraphFunction.DrawGraph(canvas, 5);
@@ -258,6 +261,33 @@ namespace Graph
             {
                 Error.Text = ex.Message;
             }
+        }
+
+        private void Next_Click(object sender, RoutedEventArgs e)
+        {
+            if (save.whichSaves < save.howMuchSaves)
+                save.whichSaves++;
+            MuchSaves.Content = save.whichSaves + "/" + save.howMuchSaves;
+        }
+
+        private void Back_Click(object sender, RoutedEventArgs e)
+        {
+            if (save.whichSaves > 1)
+                save.whichSaves--;
+            MuchSaves.Content = save.whichSaves + "/" + save.howMuchSaves;
+        }
+
+        private void Save_Click(object sender, RoutedEventArgs e)
+        {
+            save.SaveGraph(GraphFunction);
+            MuchSaves.Content = save.whichSaves + "/" + save.howMuchSaves;
+        }
+
+        private void DrawSave_Click(object sender, RoutedEventArgs e)
+        {
+            GraphFunction = save.ReturnSave();
+            GraphFunction.DrawGraph(canvas, 1);
+            SetUp(FunctionPattern, GraphFunction.ToString());
         }
     }
 }
