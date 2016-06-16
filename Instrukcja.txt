@@ -1,0 +1,13 @@
+﻿Aplikacja służy do rysowania wykresów czterech podstawowych funcki i przekształcania ich wykresów.
+
+Na środku okna znajduję się obszar na którym znajduję się dwuwymiarowy układ kartezjański w którego odniesieniu
+są rysowane wykresy. Po lewej stronie stonie są przyciski służące do przekształcania wykresów funcji.
+
+Po prawej znajduje się idąc od góry:
+- pozycja myszki względem osi układu kartezjańskiego
+- poniżej przycisk służący do czyszczenia obszaru do rysowania
+- poniżej przyciski do rysowania wykresów funcji liniowej, kwadratowej, pierwiastka z x, sześciennej
+- przycisk do rysowania aktualnej funkcji.
+
+Poniżej przycisk do zapisywania aktualnej funkcji, oraz dwa przyciki do wybierania zapisanych wykresów.
+Poniżej zaś przycisk do rysowania zapisanych wykresów. 
