@@ -56,14 +56,14 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Compile Include="Function\CubicFunction.cs" />
+    <Compile Include="CubicFunction.cs" />
     <Compile Include="Function.cs" />
     <Compile Include="FunctionError.cs" />
     <Compile Include="GraphOfFunction.cs" />
     <Compile Include="IFunction.cs" />
-    <Compile Include="Function\LineFunction.cs" />
-    <Compile Include="Function\QuadraticFunction.cs" />
-    <Compile Include="Function\RootFunction.cs" />
+    <Compile Include="LineFunction.cs" />
+    <Compile Include="QuadraticFunction.cs" />
+    <Compile Include="RootFunction.cs" />
     <Compile Include="Ruler.cs" />
     <Compile Include="Save.cs" />
     <Compile Include="Vector.cs" />
